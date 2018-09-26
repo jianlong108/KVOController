@@ -99,6 +99,8 @@ NSString *const FBKVONotificationKeyPathKey = @"FBKVONotificationKeyPathKey";
  @abstract The key-value observation info.
  @discussion Object equality is only used within the scope of a controller instance. Safely omit controller from equality definition.
  */
+//_FBKVOInfo 在 KVOController 中充当的作用仅仅是一个数据结构，我们主要用它来存储整个 KVO 过程中所需要的全部信息，其内部没有任何值得一看的代码，=====，_FBKVOInfo 覆写了 -isEqual: 方法用于对象之间的判等以及方便 NSMapTable 的存储。
+
 @interface _FBKVOInfo : NSObject
 @end
 
@@ -172,6 +174,7 @@ NSString *const FBKVONotificationKeyPathKey = @"FBKVONotificationKeyPathKey";
   return [_keyPath isEqualToString:((_FBKVOInfo *)object)->_keyPath];
 }
 
+//在iOS上的NSObject也有一个方法，为description，该方法返回objc对象的描述信息，当我们调用NSLog打印一个对象或者NSString格式化输出一个对象的时候，就会调用该方法，NSObject还有另一个方法debugDescription，用于在调试控制台输出信息（在控制台输出对象信息如：po person），默认情况下debugDescription调用的时description方法
 - (NSString *)debugDescription
 {
   NSMutableString *s = [NSMutableString stringWithFormat:@"<%@:%p keyPath:%@", NSStringFromClass([self class]), self, _keyPath];
@@ -417,6 +420,23 @@ NSString *const FBKVONotificationKeyPathKey = @"FBKVONotificationKeyPathKey";
   self = [super init];
   if (nil != self) {
     _observer = observer;
+    NSPointerFunctionsOptions 枚举定义着内存管理策略、方法特性和内存标识，以下是几个常用的枚举值：
+    
+//    内存管理策略：
+//
+//    NSPointerFunctionsStrongMemory：强引用成员
+//    NSPointerFunctionsMallocMemory 与 NSPointerFunctionsMachVirtualMemory： 用于 Mach 的 虚拟内存管理
+//    NSPointerFunctionsWeakMemory：弱引用成员
+
+//    方法特性：
+//
+//    NSPointerFunctionsObjectPersonality：hash、isEqual、对象描述
+//    NSPointerFunctionsOpaquePersonality：pointer 的 hash 、直接判等
+ 
+//    内存标识：
+//
+//    NSPointerFunctionsCopyIn 添加成员时进行 copy 操作
+    
     NSPointerFunctionsOptions keyOptions = retainObserved ? NSPointerFunctionsStrongMemory|NSPointerFunctionsObjectPointerPersonality : NSPointerFunctionsWeakMemory|NSPointerFunctionsObjectPointerPersonality;
     _objectInfosMap = [[NSMapTable alloc] initWithKeyOptions:keyOptions valueOptions:NSPointerFunctionsStrongMemory|NSPointerFunctionsObjectPersonality capacity:0];
     pthread_mutex_init(&_lock, NULL);
@@ -475,6 +495,7 @@ NSString *const FBKVONotificationKeyPathKey = @"FBKVONotificationKeyPathKey";
   NSMutableSet *infos = [_objectInfosMap objectForKey:object];
 
   // check for info existence
+  //set 和nsmutableSet 判断是否包含某个对象
   _FBKVOInfo *existingInfo = [infos member:info];
   if (nil != existingInfo) {
     // observation info already exists; do not observe it again

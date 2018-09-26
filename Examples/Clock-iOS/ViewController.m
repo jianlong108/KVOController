@@ -50,11 +50,11 @@
   clockView.bounds = CGRectMake(0, 0, 132, 132);
 
   CGRect contentBounds = self.view.bounds;
-#if RANDOM_ENABLED
-  clockView.center = CGPointMake(arc4random_uniform(contentBounds.size.width), arc4random_uniform(contentBounds.size.height));
-#else
+//#if RANDOM_ENABLED
+//  clockView.center = CGPointMake(arc4random_uniform(contentBounds.size.width), arc4random_uniform(contentBounds.size.height));
+//#else
   clockView.center = CGPointMake(contentBounds.size.width / 2., contentBounds.size.height / 2.);
-#endif
+//#endif
 }
 
 - (void)_removeClockView
@@ -94,11 +94,11 @@
   [super viewDidLoad];
   self.view.backgroundColor = [UIColor colorWithWhite:0.9 alpha:1.0];
 
-  while (_clockViews.count < CLOCK_VIEW_MAX_COUNT) {
+//  while (_clockViews.count < CLOCK_VIEW_MAX_COUNT) {
     [self _addClockView];
-  }
+//  }
 
-  [self _scheduleTimer];
+//  [self _scheduleTimer];
 }
 
 @end
