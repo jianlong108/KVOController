@@ -10,7 +10,7 @@
 #import "NSObject+FBKVOController.h"
 
 #import <objc/message.h>
-
+//项目必须用于ARC环境下
 #if !__has_feature(objc_arc)
 #error This file must be compiled with ARC. Convert your project to ARC or specify the -fobjc-arc flag.
 #endif

@@ -420,8 +420,8 @@ NSString *const FBKVONotificationKeyPathKey = @"FBKVONotificationKeyPathKey";
   self = [super init];
   if (nil != self) {
     _observer = observer;
-    NSPointerFunctionsOptions 枚举定义着内存管理策略、方法特性和内存标识，以下是几个常用的枚举值：
-    
+//    NSPointerFunctionsOptions 枚举定义着内存管理策略、方法特性和内存标识，以下是几个常用的枚举值：
+//    
 //    内存管理策略：
 //
 //    NSPointerFunctionsStrongMemory：强引用成员
@@ -438,6 +438,8 @@ NSString *const FBKVONotificationKeyPathKey = @"FBKVONotificationKeyPathKey";
 //    NSPointerFunctionsCopyIn 添加成员时进行 copy 操作
     
     NSPointerFunctionsOptions keyOptions = retainObserved ? NSPointerFunctionsStrongMemory|NSPointerFunctionsObjectPointerPersonality : NSPointerFunctionsWeakMemory|NSPointerFunctionsObjectPointerPersonality;
+    
+    
     _objectInfosMap = [[NSMapTable alloc] initWithKeyOptions:keyOptions valueOptions:NSPointerFunctionsStrongMemory|NSPointerFunctionsObjectPersonality capacity:0];
     pthread_mutex_init(&_lock, NULL);
   }
@@ -596,6 +598,7 @@ NSString *const FBKVONotificationKeyPathKey = @"FBKVONotificationKeyPathKey";
   }
 
   // create info
+  //根据被观察者、KVOControllerinstance、、、初始化info
   _FBKVOInfo *info = [[_FBKVOInfo alloc] initWithController:self keyPath:keyPath options:options block:block];
 
   // observe object with info
