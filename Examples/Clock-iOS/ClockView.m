@@ -10,6 +10,7 @@
 #import "ClockView.h"
 #import "ClockLayer.h"
 #import <FBKVOController/FBKVOController.h>
+#import "Clock.h"
 
 #define CLOCK_LAYER(VIEW) ((ClockLayer *)VIEW.layer)
 
@@ -56,6 +57,16 @@ static NSDictionary *layer_style(ClockViewStyle viewStyle)
     }];
   }
   return self;
+}
+
+- (instancetype)initWithFrame:(CGRect)frame
+{
+    if (self = [super initWithFrame:frame]) {
+        CLOCK_LAYER(self).date = [Clock clock].date;
+        CLOCK_LAYER(self).style = layer_style(kClockViewStyleDark);
+
+    }
+    return self;
 }
 
 @end

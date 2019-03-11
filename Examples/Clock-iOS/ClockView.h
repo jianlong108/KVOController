@@ -8,6 +8,9 @@
  */
 
 #import <UIKit/UIKit.h>
+#import "ClockLayer.h"
+
+#define CLOCK_LAYER(VIEW) ((ClockLayer *)VIEW.layer)
 
 @class Clock;
 

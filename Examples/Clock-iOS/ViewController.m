@@ -10,6 +10,7 @@
 #import "ViewController.h"
 #import "Clock.h"
 #import "ClockView.h"
+#import "NSObject+KVO.h"
 
 #define CLOCK_VIEW_MAX_COUNT 10
 #define CLOCK_VIEW_TIME_DELAY 3.0
@@ -37,24 +38,40 @@
   return YES;
 }
 
+
 - (void)_addClockView
 {
   if (!_clockViews) {
     _clockViews = [NSMutableArray array];
   }
   
+    CGRect contentBounds = self.view.bounds;
   ClockView *clockView = [[ClockView alloc] initWithClock:[Clock clock] style:arc4random_uniform(kClockViewStyleDark+1)];
   [_clockViews addObject:clockView];
   [self.view addSubview:clockView];
-
   clockView.bounds = CGRectMake(0, 0, 132, 132);
-
-  CGRect contentBounds = self.view.bounds;
+    clockView.center = CGPointMake(contentBounds.size.width / 2., 100);
+    
 //#if RANDOM_ENABLED
 //  clockView.center = CGPointMake(arc4random_uniform(contentBounds.size.width), arc4random_uniform(contentBounds.size.height));
 //#else
-  clockView.center = CGPointMake(contentBounds.size.width / 2., contentBounds.size.height / 2.);
+//  clockView.center = CGPointMake(contentBounds.size.width / 2., 100);
 //#endif
+    
+    ClockView *clockView_new = [[ClockView alloc] init];
+    [_clockViews addObject:clockView_new];
+    [self.view addSubview:clockView_new];
+    
+    clockView_new.bounds = CGRectMake(0, 0, 132, 132);
+    
+    clockView_new.center = CGPointMake(contentBounds.size.width / 2., 300);
+    
+    [[Clock clock] JL_addObserver:clockView_new forKey:@"date" withBlock:^(id observedObject, NSString *observedKey, id oldValue, id newValue) {
+        NSLog(@"%@",newValue);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            CLOCK_LAYER(clockView_new).date = newValue;
+        });
+    }];
 }
 
 - (void)_removeClockView
@@ -93,7 +110,7 @@
 {
   [super viewDidLoad];
   self.view.backgroundColor = [UIColor colorWithWhite:0.9 alpha:1.0];
-
+    
 //  while (_clockViews.count < CLOCK_VIEW_MAX_COUNT) {
     [self _addClockView];
 //  }

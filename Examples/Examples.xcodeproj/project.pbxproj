@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3464689922363E95003AB5D2 /* NSObject+KVO.m in Sources */ = {isa = PBXBuildFile; fileRef = 3464689822363E94003AB5D2 /* NSObject+KVO.m */; };
 		EC45CACE18ADC7CE0063DD11 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC45CACD18ADC7CE0063DD11 /* Foundation.framework */; };
 		EC45CAD018ADC7CE0063DD11 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC45CACF18ADC7CE0063DD11 /* CoreGraphics.framework */; };
 		EC45CAD218ADC7CE0063DD11 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC45CAD118ADC7CE0063DD11 /* UIKit.framework */; };
@@ -34,6 +35,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3464689722363E94003AB5D2 /* NSObject+KVO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+KVO.h"; sourceTree = "<group>"; };
+		3464689822363E94003AB5D2 /* NSObject+KVO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+KVO.m"; sourceTree = "<group>"; };
 		EC45CACA18ADC7CE0063DD11 /* Clock-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Clock-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EC45CACD18ADC7CE0063DD11 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		EC45CACF18ADC7CE0063DD11 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -135,6 +138,8 @@
 		EC45CAD318ADC7CE0063DD11 /* Clock-iOS */ = {
 			isa = PBXGroup;
 			children = (
+				3464689722363E94003AB5D2 /* NSObject+KVO.h */,
+				3464689822363E94003AB5D2 /* NSObject+KVO.m */,
 				EC45CADC18ADC7CE0063DD11 /* AppDelegate.h */,
 				EC45CADD18ADC7CE0063DD11 /* AppDelegate.m */,
 				EC45CADF18ADC7CE0063DD11 /* Main_iPhone.storyboard */,
@@ -311,6 +316,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				ECC5761B18ADF76500C2BFB8 /* ClockLayer.m in Sources */,
+				3464689922363E95003AB5D2 /* NSObject+KVO.m in Sources */,
 				EC45CAE718ADC7CE0063DD11 /* ViewController.m in Sources */,
 				ECC5761818ADF2F100C2BFB8 /* ClockView.m in Sources */,
 				EC45CADE18ADC7CE0063DD11 /* AppDelegate.m in Sources */,
